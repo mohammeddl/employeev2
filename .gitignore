@@ -1,0 +1,9 @@
+# Ignore all class files
+*.class
+
+# Ignore the bin directory where compiled classes go (optional)
+/bin
+
+# Ignore target folder
+
+/target
