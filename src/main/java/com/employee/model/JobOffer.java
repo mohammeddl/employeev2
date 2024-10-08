@@ -1,14 +1,26 @@
+package com.employee.model;
+
+import javax.persistence.*;
+
+
+@Entity
 public class JobOffer {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
     private String description;
-    private int recruiterId;
+    @ManyToOne
+    @JoinColumn(name = "recruiter_id")
+    private Recruiter recruiter;
 
-    public JobOffer(String title, String description, int recruiterId) {
+    public JobOffer(String title, String description, Recruiter recruiter) {
         this.title = title;
         this.description = description;
-        this.recruiterId = recruiterId;
+        this.recruiter = recruiter;
+    }
+
+    public JobOffer() {
     }
 
     public String getTitle() {
@@ -19,10 +31,6 @@ public class JobOffer {
         return description;
     }
 
-    public int getRecruiterId() {
-        return recruiterId;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -31,9 +39,15 @@ public class JobOffer {
         this.description = description;
     }
 
-    public void setRecruiterId(int recruiterId) {
-        this.recruiterId = recruiterId;
+    public Recruiter getRecruiter() {
+        return recruiter;
     }
+
+    public void setRecruiter(Recruiter recruiter) {
+        this.recruiter = recruiter;
+    }
+
+
 
     
 }

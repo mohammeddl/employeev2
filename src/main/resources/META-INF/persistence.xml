@@ -5,22 +5,25 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <!-- Specify your entity classes here -->
+        <class>com.employee.model.User</class>
+        <class>com.employee.model.Employee</class>
+        <class>com.employee.model.Recruiter</class>
+        <class>com.employee.model.Admin</class>
+        <class>com.employee.model.Candidate</class>
+        <class>com.employee.model.Family</class>
+        <class>com.employee.model.Leave</class>
+        <class>com.employee.model.JobOffer</class>
 
         <!-- Database Configuration for PostgreSQL -->
         <properties>
 
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/employeev2_db" />
-            
             <property name="javax.persistence.jdbc.user" value="postgres" />
-            
             <property name="javax.persistence.jdbc.password" value="0074" />
-            <!-- Hibernate Settings for PostgreSQL -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
             <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
         </properties>
     </persistence-unit>
 </persistence>
