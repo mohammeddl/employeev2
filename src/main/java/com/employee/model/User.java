@@ -6,7 +6,7 @@ import java.util.Date;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-abstract class User {
+public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
