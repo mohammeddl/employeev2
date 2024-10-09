@@ -6,7 +6,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.employee.model.Candidate;
+import com.employee.model.Recruiter;
 import com.employee.model.User;
+import com.employee.service.CandidateService;
+import com.employee.service.RecruiterService;
 import com.employee.service.UserService;
 
 import java.io.IOException;
@@ -16,16 +20,20 @@ import java.util.Date;
 public class UserController extends HttpServlet {
 
     private UserService userService = new UserService();
+    private CandidateService candidateService = new CandidateService();
+    private RecruiterService recruiterService = new RecruiterService();
 
     public void inti() {
         userService = new UserService();
+        candidateService = new CandidateService();
+        recruiterService = new RecruiterService();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
         switch (action) {
-            case "regiser":
+            case "register":
                 registerUser(request, response);
                 break;
             case "login":
@@ -46,7 +54,6 @@ public class UserController extends HttpServlet {
             request.setAttribute("errorMessage", "Invalid email or password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            // Role-based redirection based on the user's role
             switch (user.getRole()) {
                 case "EMPLOYEE":
                     response.sendRedirect("employee.jsp");
@@ -67,11 +74,7 @@ public class UserController extends HttpServlet {
         }
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.sendRedirect("login.jsp");
-    }
-
+   
     public void registerUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
@@ -82,9 +85,23 @@ public class UserController extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String address = request.getParameter("address");
         if(role.equals("CANDIDATE")){
-            
+            Candidate candidate = new Candidate(name, email, password, role, new Date(), phoneNumber, address);
+            candidateService.createCandidate(candidate);
+            request.setAttribute("message", "Candidate created successfully");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }else{
+            Recruiter recruiter = new Recruiter(name, email, password, role, new Date(), phoneNumber, address);
+            recruiterService.addRecruiter(recruiter);
+            request.setAttribute("message", "Recruiter created successfully");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-      
         
     }
+
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+response.sendRedirect("login.jsp");
+}
+
 }
