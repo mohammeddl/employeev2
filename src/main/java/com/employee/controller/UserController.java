@@ -5,60 +5,86 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.employee.model.User;
+import com.employee.service.UserService;
+
 import java.io.IOException;
+import java.util.Date;
 
-public class UserController {
+@WebServlet("/oauth")
+public class UserController extends HttpServlet {
 
-    @WebServlet("/oauth")
-    public class UserServlet extends HttpServlet {
+    private UserService userService = new UserService();
 
-        public void inti() {
-            // userService = new UserService();
-        }
+    public void inti() {
+        userService = new UserService();
+    }
 
-        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            String action = request.getParameter("action");
-            switch (action) {
-                case "regiser":
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        switch (action) {
+            case "regiser":
                 registerUser(request, response);
                 break;
-                case "login":
+            case "login":
                 loginUser(request, response);
+                break;
+            default:
+                // response.sendRedirect("error.jsp");
+                break;
+        }
+    }
+
+    public void loginUser(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        User user = userService.login(email, password);
+        if (user == null) {
+            request.setAttribute("errorMessage", "Invalid email or password");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+            // Role-based redirection based on the user's role
+            switch (user.getRole()) {
+                case "EMPLOYEE":
+                    response.sendRedirect("employee.jsp");
+                    break;
+                case "RECRUITER":
+                    response.sendRedirect("recruiter.jsp");
+                    break;
+                case "CANDIDATE":
+                    response.sendRedirect("candidate.jsp");
+                    break;
+                case "ADMIN":
+                    response.sendRedirect("admin.jsp");
                     break;
                 default:
+                    response.sendRedirect("login.jsp");
                     break;
             }
         }
     }
-    
 
-    public void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        // User user = userService.login(email, password);
-        // if (user.getRole().equals("ADMIN")) {  
-        //     response.sendRedirect("admin.jsp");
-        // } if else (user.getRole().equals("EMPLOYEE")) {
-        //     response.sendRedirect("employee.jsp");
-        // } if else (user.getRole().equals("RECRUITER")) {
-        //     response.sendRedirect("recruiter.jsp");
-        // } if else (user.getRole().equals("CANDIDATE")) {
-        //     response.sendRedirect("candidate.jsp");
-        // } else {
-        //     response.sendRedirect("login.jsp");
-        // }
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect("login.jsp");
     }
 
-    public void registerUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void registerUser(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
-        // Date birthDate = request.getParameter("birthDate");
+        String birthDate = request.getParameter("birthDate");
         String phoneNumber = request.getParameter("phoneNumber");
         String address = request.getParameter("address");
-        // User user = new User(name, email, password, role, birthDate, phoneNumber, address);
-        // userService.register(user);
-        // response.sendRedirect("login.jsp");
+        if(role.equals("CANDIDATE")){
+            
+        }
+      
+        
     }
 }

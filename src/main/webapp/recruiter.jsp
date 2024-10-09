@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<jsp:include page="alert.jsp" />
+
     <h1> recruiter page</h1>
 
 

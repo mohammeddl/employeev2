@@ -12,9 +12,12 @@ public class UserService {
         this.userDAO = new UserDAO();
     }
 
-    public User getUserByEmail(String email) {
-        return userDAO.findByEmail(email);
+    public User login(String email, String password) {
+        User user = userDAO.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
     }
-
     
 }
