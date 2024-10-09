@@ -22,6 +22,7 @@
 
     <button type="submit">Login</button>
 </form>
+<P>${message}</P>
 
 <c:if test="${not empty errorMessage}">
     <p style="color: red">${errorMessage}</p>
