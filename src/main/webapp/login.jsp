@@ -12,10 +12,19 @@
 </head>
 <body>
 
-<jsp:include page="alert.jsp" />
-    <h1> login page</h1>
+<h2>Login</h2>
+<form action="/oauth" method="post">
+    <input type="hidden" name="action" value="login">
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
 
+    <button type="submit">Login</button>
+</form>
 
-
+<c:if test="${not empty errorMessage}">
+    <p style="color: red">${errorMessage}</p>
+</c:if>
 </body>
 </html>
