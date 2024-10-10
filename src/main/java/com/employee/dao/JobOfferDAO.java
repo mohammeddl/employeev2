@@ -1,8 +1,11 @@
 package com.employee.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import com.employee.model.JobOffer;
+import com.employee.model.Recruiter;
 import com.employee.util.JPAUtil;
 
 public class JobOfferDAO implements GenericDAO<JobOffer> {
@@ -11,6 +14,13 @@ public class JobOfferDAO implements GenericDAO<JobOffer> {
 
     public JobOfferDAO() {
         this.em = JPAUtil.getEntityManager();
+    }
+
+    public List<JobOffer> findAll(Recruiter recruiter) {
+        return em.createQuery("SELECT j FROM JobOffer j WHERE j.recruiter = :recruiter", JobOffer.class)
+                .setParameter("recruiter", recruiter)
+                .getResultList();
+       
     }
 
     @Override

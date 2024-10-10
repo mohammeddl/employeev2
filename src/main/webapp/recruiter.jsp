@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,21 +35,23 @@
                 </thead>
                 <tbody>
                     <!-- Example Job Offers -->
+                     <c:forEach items="${jobOffers}" var="jobOffer">
                     <tr>
                         <td>1</td>
-                        <td>Software Developer</td>
-                        <td>Full-time position in the IT department.</td>
-                        <td>New York</td>
-                        <td>Published</td>
+                        <td>${jobOffer.title}</td>
+                        <td>${jobOffer.description}</td>
+                        <td>${jobOffer.location}</td>
+                        <td>${jobOffer.endDate}</td>
                         <td>
                             <button class="edit-btn">Edit</button>
                             <form action="/recruiter" method="post">
                             <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="id" value="2">
+                            <input type="hidden" name="id" value="${jobOffer.id}">
                             <input type="submit" class="delete-btn" value="Delete">
                             </form>
                         </td>
                     </tr>
+                    </c:forEach>
                     <!-- More rows can be added dynamically -->
                 </tbody>
             </table>
@@ -70,7 +74,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Example Candidate Applications -->
+                   
                     <tr>
                         <td>1</td>
                         <td>John Doe</td>
@@ -83,6 +87,7 @@
                             <button class="status-btn" data-status="Rejected">Reject</button>
                         </td>
                     </tr>
+
                     <!-- More rows can be added dynamically -->
                 </tbody>
             </table>
