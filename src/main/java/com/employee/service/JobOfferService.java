@@ -1,7 +1,10 @@
 package com.employee.service;
 
+import java.util.List;
+
 import com.employee.dao.JobOfferDAO;
 import com.employee.model.JobOffer;
+import com.employee.model.Recruiter;
 
 public class JobOfferService {
 
@@ -9,6 +12,10 @@ public class JobOfferService {
 
     public JobOfferService() {
         this.jobOfferDAO = new JobOfferDAO();
+    }
+
+    public List<JobOffer> findAllJobOffers(Recruiter recruiter) {
+        return jobOfferDAO.findAll(recruiter);
     }
 
     public void createJobOffer(JobOffer jobOffer) {

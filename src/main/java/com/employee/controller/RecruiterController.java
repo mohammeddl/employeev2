@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.employee.model.JobOffer;
 import com.employee.model.Recruiter;
@@ -39,6 +40,11 @@ public class RecruiterController extends HttpServlet {
                 // res.sendRedirect("error.jsp");
                 break;
         }
+    }
+
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException {
+        getAllJobOffers(req, res);
+        
     }
 
 
@@ -77,9 +83,22 @@ public class RecruiterController extends HttpServlet {
         jobOffer.setRecruiter(recruiter);
         jobOfferService.deleteJobOffer(jobOffer);
 
-        req.setAttribute("message", jobOffer);
+        List<JobOffer> jobOffers = jobOfferService.findAllJobOffers(recruiter);;
+        req.setAttribute("jobOffers", jobOffers);
         req.getRequestDispatcher("recruiter.jsp").forward(req, resp);
     }
 
     
+    public void getAllJobOffers(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        HttpSession session = req.getSession();
+        Recruiter recruiter = (Recruiter) session.getAttribute("recruiter");
+
+        if (recruiter == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
+        List<JobOffer> jobOffers = jobOfferService.findAllJobOffers(recruiter);;
+        req.setAttribute("jobOffers", jobOffers);
+        req.getRequestDispatcher("recruiter.jsp").forward(req, resp);
+    }
 }
