@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.employee.model.Candidate;
 import com.employee.model.Recruiter;
@@ -54,11 +55,16 @@ public class UserController extends HttpServlet {
             request.setAttribute("errorMessage", "Invalid email or password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
+
+            HttpSession session = request.getSession();
+            session.setAttribute("loginUser", user);
+
             switch (user.getRole()) {
                 case "EMPLOYEE":
                     response.sendRedirect("employee.jsp");
                     break;
                 case "RECRUITER":
+                    session.setAttribute("recruiter", user);
                     response.sendRedirect("recruiter.jsp");
                     break;
                 case "CANDIDATE":
@@ -104,4 +110,16 @@ public class UserController extends HttpServlet {
 response.sendRedirect("login.jsp");
 }
 
+
+// public class LogoutController extends HttpServlet {
+//     protected void doGet(HttpServletRequest request, HttpServletResponse response)
+//             throws ServletException, IOException {
+//         // Invalidate the session to clear all stored session data
+//         HttpSession session = request.getSession(false); // Get session without creating a new one
+//         if (session != null) {
+//             session.invalidate(); // Close session
+//         }
+//         response.sendRedirect("login.jsp"); // Redirect to login page after logout
+//     }
+// }
 }

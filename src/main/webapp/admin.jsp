@@ -47,7 +47,7 @@
         <div id="employeeFormContainer" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <form id="employeeForm">
+                <form id="employeeForm" method="post" action="/JobOffer">
                     <h2 id="formTitle">Add Employee</h2>
                     <input type="hidden" id="employeeId" name="employeeId">
 

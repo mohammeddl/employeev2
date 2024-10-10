@@ -14,6 +14,7 @@
         <!-- Job Offer Section -->
         <section id="jobOfferSection">
             <h2>Job Offers</h2>
+            <h1>${message}</h1>
 
             <!-- Add Job Offer Button -->
             <button id="addJobOfferBtn" class="button">Create Job Offer</button>
@@ -40,7 +41,11 @@
                         <td>Published</td>
                         <td>
                             <button class="edit-btn">Edit</button>
-                            <button class="delete-btn">Delete</button>
+                            <form action="/recruiter" method="post">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" value="2">
+                            <input type="submit" class="delete-btn" value="Delete">
+                            </form>
                         </td>
                     </tr>
                     <!-- More rows can be added dynamically -->
@@ -87,7 +92,7 @@
         <div id="jobOfferFormContainer" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <form id="jobOfferForm">
+                <form id="jobOfferForm" method="post" action="/recruiter">
                     <h2 id="formTitle">Create Job Offer</h2>
                     <input type="hidden" id="jobId" name="jobId">
 
@@ -100,6 +105,8 @@
                     <label for="location">Location:</label>
                     <input type="text" id="location" name="location" required>
 
+                    <label for="date">End Date:</label>
+                    <input type="date" id="date" name="date" required>
                     <button type="submit" class="button">Save</button>
                 </form>
             </div>
