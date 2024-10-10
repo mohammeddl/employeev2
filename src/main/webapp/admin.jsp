@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,27 +29,32 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Example Employee Data -->
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>john@example.com</td>
-                    <td>555-1234</td>
-                    <td>Employee</td>
-                    <td>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
-                <!-- More rows of employees will be added dynamically -->
+                <!-- Use JSTL to loop through employees -->
+                <c:forEach var="employee" items="${employees}">
+                    <tr>
+                        <td>${employee.id}</td>
+                        <td>${employee.name}</td>
+                        <td>${employee.email}</td>
+                        <td>${employee.phoneNumber}</td>
+                        <td>${employee.role}</td>
+                        <td>
+                            <button class="edit-btn" data-id="${employee.id}">Edit</button>
+                            <form action="/admin" method="post" style="display:inline-block;">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="employeeId" value="${employee.id}">
+                                <input type="submit" class="delete-btn" value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
 
-        <!-- Add/Edit Employee Form -->
+        <!-- Add/Edit Employee Form Modal -->
         <div id="employeeFormContainer" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <form id="employeeForm" method="post" action="/JobOffer">
+                <form id="employeeForm" method="post" action="/admin">
                     <h2 id="formTitle">Add Employee</h2>
                     <input type="hidden" id="employeeId" name="employeeId">
 
@@ -62,14 +69,11 @@
 
                     <label for="role">Role:</label>
                     <select id="role" name="role" required>
-                        <option value="Employee">Employee</option>
-                        <option value="Recruiter">Recruiter</option>
-                        <option value="Admin">Admin</option>
+                        <option value="EMPLOYEE">Employee</option>
+                        <option value="RECRUITER">Recruiter</option>
                     </select>
 
-                    <label for="adminDocuments">Administrative Documents:</label>
-                    <input type="file" id="adminDocuments" name="adminDocuments" multiple>
-
+                    <input type="hidden" name="action" id="actionField">
                     <button type="submit" class="button">Save</button>
                 </form>
             </div>
