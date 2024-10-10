@@ -13,15 +13,12 @@
     <div class="container">
         <h1>Recruitment Management</h1>
 
-        <!-- Job Offer Section -->
         <section id="jobOfferSection">
             <h2>Job Offers</h2>
             <h1>${message}</h1>
 
-            <!-- Add Job Offer Button -->
             <button id="addJobOfferBtn" class="button">Create Job Offer</button>
 
-            <!-- Job Offer List -->
             <table id="jobOfferTable">
                 <thead>
                     <tr>
@@ -34,10 +31,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Example Job Offers -->
                      <c:forEach items="${jobOffers}" var="jobOffer">
                     <tr>
-                        <td>1</td>
+                        <td>${jobOffer.id}</td>
                         <td>${jobOffer.title}</td>
                         <td>${jobOffer.description}</td>
                         <td>${jobOffer.location}</td>
@@ -52,16 +48,13 @@
                         </td>
                     </tr>
                     </c:forEach>
-                    <!-- More rows can be added dynamically -->
                 </tbody>
             </table>
         </section>
 
-        <!-- Candidate Applications Section -->
         <section id="candidateSection">
             <h2>Candidate Applications</h2>
 
-            <!-- Candidate Application List -->
             <table id="candidateTable">
                 <thead>
                     <tr>

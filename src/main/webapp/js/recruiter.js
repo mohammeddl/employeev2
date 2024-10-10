@@ -1,4 +1,4 @@
-// Modal logic for job offers
+// Existing code
 const modal = document.getElementById('jobOfferFormContainer');
 const formTitle = document.getElementById('formTitle');
 const addJobOfferBtn = document.getElementById('addJobOfferBtn');
@@ -10,8 +10,6 @@ const description = document.getElementById('description');
 const locations = document.getElementById('location');
 const date = document.getElementById('date');
 
-
-// Open modal for adding new job offer
 addJobOfferBtn.onclick = function() {
     formTitle.innerText = "Create Job Offer";
     jobOfferForm.reset();
@@ -19,29 +17,39 @@ addJobOfferBtn.onclick = function() {
     modal.style.display = 'flex';
 };
 
-// Close modal
+
 closeBtn.onclick = function() {
     modal.style.display = 'none';
 };
 
-// Close modal when clicking outside of it
 window.onclick = function(event) {
     if (event.target === modal) {
         modal.style.display = 'none';
     }
 };
 
-// Submit the form for adding/editing job offer
+document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', function(event) {
+        const row = event.target.closest('tr');
+        jobIdField.value = row.querySelector('td:nth-child(1)').innerText;
+        title.value = row.querySelector('td:nth-child(2)').innerText;
+        description.value = row.querySelector('td:nth-child(3)').innerText;
+        locations.value = row.querySelector('td:nth-child(4)').innerText;
+        date.value = row.querySelector('td:nth-child(5)').innerText;
+        formTitle.innerText = "Update Job Offer";
+        modal.style.display = 'flex';
+    });
+});
+
 jobOfferForm.onsubmit = function(event) {
     event.preventDefault();
-    
     const jobData = {
         jobId: jobIdField.value,
         title: title.value,
         description: description.value,
         location: locations.value,
         date: date.value,
-        action: "create"
+        action: jobIdField.value ? "update" : "create" 
     };
     fetch('/recruiter', {
         method: 'POST',
@@ -53,6 +61,7 @@ jobOfferForm.onsubmit = function(event) {
         if (response.ok) {
             console.log('Job offer created/updated successfully');
             modal.style.display = 'none';
+            // You may want to refresh the job offers list here
         } else {
             console.log('Error occurred');
         }
@@ -60,15 +69,3 @@ jobOfferForm.onsubmit = function(event) {
         console.error('Error:', error);
     });
 };
-
-
-// Change candidate application status
-document.querySelectorAll('.status-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const newStatus = btn.getAttribute('data-status');
-        console.log('Changing status to:', newStatus);
-        // Change candidate status logic
-    });
-});
-
-

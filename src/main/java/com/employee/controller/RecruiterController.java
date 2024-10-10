@@ -31,7 +31,7 @@ public class RecruiterController extends HttpServlet {
                 createJobOffer(req, res);
                 break;
             case "update":
-                // updateJobOffer(req, res);
+                updateJobOffer(req, res);
                 break;
             case "delete":
                 deleteJobOffer(req, res);
@@ -88,6 +88,26 @@ public class RecruiterController extends HttpServlet {
         req.getRequestDispatcher("recruiter.jsp").forward(req, resp);
     }
 
+    public void updateJobOffer(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        HttpSession session = req.getSession();
+        Recruiter recruiter = (Recruiter) session.getAttribute("recruiter");
+        if (recruiter == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
+        JobOffer jobOffer = new JobOffer();
+        jobOffer.setId(Integer.parseInt(req.getParameter("jobId")));
+        jobOffer.setTitle(req.getParameter("title"));
+        jobOffer.setDescription(req.getParameter("description"));
+        jobOffer.setLocation(req.getParameter("location"));
+        jobOffer.setStatus(req.getParameter("status"));
+        jobOffer.setEndDate(req.getParameter("date"));
+        jobOffer.setRecruiter(recruiter);
+        jobOfferService.updateJobOffer(jobOffer);
+        List<JobOffer> jobOffers = jobOfferService.findAllJobOffers(recruiter);;
+        req.setAttribute("jobOffers", jobOffers);
+        req.getRequestDispatcher("recruiter.jsp").forward(req, resp);
+    }
     
     public void getAllJobOffers(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
@@ -101,4 +121,6 @@ public class RecruiterController extends HttpServlet {
         req.setAttribute("jobOffers", jobOffers);
         req.getRequestDispatcher("recruiter.jsp").forward(req, resp);
     }
+
+
 }
