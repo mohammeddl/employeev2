@@ -5,6 +5,11 @@ const addJobOfferBtn = document.getElementById('addJobOfferBtn');
 const closeBtn = document.getElementsByClassName('close')[0];
 const jobOfferForm = document.getElementById('jobOfferForm');
 const jobIdField = document.getElementById('jobId');
+const title = document.getElementById('title');
+const description = document.getElementById('description');
+const locations = document.getElementById('location');
+const date = document.getElementById('date');
+
 
 // Open modal for adding new job offer
 addJobOfferBtn.onclick = function() {
@@ -29,16 +34,33 @@ window.onclick = function(event) {
 // Submit the form for adding/editing job offer
 jobOfferForm.onsubmit = function(event) {
     event.preventDefault();
-    const jobId = jobIdField.value;
-    if (jobId) {
-        console.log('Updating job offer:', jobId);
-        // Update job offer logic
-    } else {
-        console.log('Creating new job offer');
-        // Add job offer logic
-    }
-    modal.style.display = 'none';
+    
+    const jobData = {
+        jobId: jobIdField.value,
+        title: title.value,
+        description: description.value,
+        location: locations.value,
+        date: date.value,
+        action: "create"
+    };
+    fetch('/recruiter', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(jobData).toString()
+    }).then(response => {
+        if (response.ok) {
+            console.log('Job offer created/updated successfully');
+            modal.style.display = 'none';
+        } else {
+            console.log('Error occurred');
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+    });
 };
+
 
 // Change candidate application status
 document.querySelectorAll('.status-btn').forEach(btn => {
@@ -48,3 +70,5 @@ document.querySelectorAll('.status-btn').forEach(btn => {
         // Change candidate status logic
     });
 });
+
+
