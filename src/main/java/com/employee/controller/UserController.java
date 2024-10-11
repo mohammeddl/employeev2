@@ -62,7 +62,7 @@ public class UserController extends HttpServlet {
             switch (user.getRole()) {
                 case "EMPLOYEE":
                     session.setAttribute("employee", user);
-                    response.sendRedirect("/leave");
+                    response.sendRedirect("leave");
                     break;
                 case "RECRUITER":
                     session.setAttribute("recruiter", user);
@@ -74,7 +74,7 @@ public class UserController extends HttpServlet {
                     break;
                 case "ADMIN":
                     session.setAttribute("admin", user);
-                    response.sendRedirect("admin.jsp");
+                    response.sendRedirect("admin");
                     break;
                 default:
                     response.sendRedirect("login.jsp");

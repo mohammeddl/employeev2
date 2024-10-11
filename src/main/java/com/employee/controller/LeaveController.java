@@ -61,7 +61,7 @@ public class LeaveController extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                getAllLeavesByEmployeeId(request, response);
+            getAllLeavesByEmployeeId(request, response);
         
     }
 
