@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,53 +16,51 @@
         <!-- Leave Request Section -->
         <section id="leaveRequestSection">
             <h2>Request Leave</h2>
+            <h3>${errorMessage} </h3>
 
-            <form id="leaveForm" enctype="multipart/form-data">
-                <label for="leaveType">Leave Type:</label>
-                <select id="leaveType" name="leaveType" required>
-                    <option value="Annual Leave">Annual Leave</option>
-                    <option value="Sick Leave">Sick Leave</option>
-                    <option value="Maternity Leave">Maternity Leave</option>
-                </select>
+        <form  action="leave" method="post">
+    <input type="hidden" name="action" value="apply">
+    <label for="leaveType">Leave Type:</label>
+    <select id="leaveType" name="leaveType" required>
+        <option value="Annual Leave">Annual Leave</option>
+        <option value="Sick Leave">Sick Leave</option>
+        <option value="Maternity Leave">Maternity Leave</option>
+    </select>
 
-                <label for="startDate">Start Date:</label>
-                <input type="date" id="startDate" name="startDate" required>
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required>
 
-                <label for="endDate">End Date:</label>
-                <input type="date" id="endDate" name="endDate" required>
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" required>
 
-                <label for="justification">Justification (Optional):</label>
-                <textarea id="justification" name="justification"></textarea>
+    <label for="justification">Justification (Optional):</label>
+    <textarea id="justification" name="justification"></textarea>
 
-                <label for="supportingDocuments">Supporting Documents:</label>
-                <input type="file" id="supportingDocuments" name="supportingDocuments" multiple>
+    <button type="submit" class="button">Submit Leave Request</button>
+</form>
 
-                <button type="submit" class="button">Submit Leave Request</button>
-            </form>
         </section>
 
-        <!-- Leave History Section -->
-        <section id="leaveHistorySection">
+       
+      <section id="leaveHistorySection">
             <h2>Leave History</h2>
 
             <table id="leaveHistoryTable">
                 <thead>
                     <tr>
-                        <th>Leave Type</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Example Leave History -->
-                    <tr>
-                        <td>Annual Leave</td>
-                        <td>2024-01-01</td>
-                        <td>2024-01-10</td>
-                        <td>Approved</td>
-                    </tr>
-                    <!-- More rows will be dynamically added -->
+                    <c:forEach var="leave" items="${leaves}">
+                        <tr>
+                            <td>${leave.startDate}</td>
+                            <td>${leave.endDate}</td>
+                            <td>${leave.status}</td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </section>
@@ -92,6 +92,6 @@
         </section>
     </div>
 
-    <script src="js/employee.js"></script>
+    <%-- <script src="js/employee.js"></script> --%>
 </body>
 </html>

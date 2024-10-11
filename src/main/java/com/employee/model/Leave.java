@@ -17,10 +17,11 @@ public class Leave {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    public Leave(Date startDate, Date endDate, String status) {
+    public Leave(Date startDate, Date endDate, String status, Employee employee) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
+        this.employee = employee;
     }
 
     public Leave() {
@@ -56,6 +57,14 @@ public class Leave {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 
