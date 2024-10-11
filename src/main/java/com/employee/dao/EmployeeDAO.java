@@ -1,5 +1,7 @@
 package com.employee.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import com.employee.model.Employee;
@@ -17,8 +19,8 @@ public class EmployeeDAO implements GenericDAO<Employee> {
     public void create(Employee employee) {
         try {
             em.getTransaction().begin();
-            em.persist(employee);       
-            em.getTransaction().commit(); 
+            em.persist(employee);
+            em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             if (em.getTransaction().isActive()) {
@@ -30,14 +32,14 @@ public class EmployeeDAO implements GenericDAO<Employee> {
     @Override
     public void update(Employee employee) {
         try {
-            em.getTransaction().begin(); 
-            em.merge(employee);          
-            em.getTransaction().commit(); 
-            
+            em.getTransaction().begin();
+            em.merge(employee);
+            em.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
             if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback(); 
+                em.getTransaction().rollback();
             }
         }
     }
@@ -45,18 +47,23 @@ public class EmployeeDAO implements GenericDAO<Employee> {
     @Override
     public void delete(Employee employee) {
         try {
-            em.getTransaction().begin(); 
+            em.getTransaction().begin();
             employee = em.merge(employee);
             em.remove(employee);
-            em.getTransaction().commit(); 
+            em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback(); 
+                em.getTransaction().rollback();
             }
         }
     }
 
-    
-    
+    public List<Employee> getAllEmployees() {
+        return em.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
+    }
+
+    public Employee getEmployeeById(int id) {
+        return em.find(Employee.class, id);
+    }
 }
