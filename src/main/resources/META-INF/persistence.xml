@@ -13,6 +13,8 @@
         <class>com.employee.model.Family</class>
         <class>com.employee.model.Leave</class>
         <class>com.employee.model.JobOffer</class>
+        <class>com.employee.model.Application</class>
+        
 
         <!-- Database Configuration for PostgreSQL -->
         <properties>
