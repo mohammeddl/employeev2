@@ -67,31 +67,49 @@
 
         <!-- Family Allowance Calculation Section -->
         <section id="familyAllowanceSection">
-            <h2>Calculate Family Allowances</h2>
+    <h2>Calculate Family Allowances</h2>
 
-            <form id="familyAllowanceForm">
-                <label for="numberOfChildren">Number of Children:</label>
-                <input type="number" id="numberOfChildren" name="numberOfChildren" min="0" required>
+    <form id="familyAllowanceForm" action="calculate_allowance" method="post">
+        <label for="numberOfChildren">Number of Children:</label>
+        <input type="number" id="numberOfChildren" name="numberOfChildren" min="0" required>
 
-                <label for="salary">Salary (Monthly):</label>
-                <input type="number" id="salary" name="salary" min="0" required>
+        <button type="submit" class="button">Calculate Allowance</button>
+    </form>
 
-                <button type="submit" class="button">Calculate Allowance</button>
-            </form>
-
-            <div id="allowanceResult">
-                <!-- The calculated allowance will be displayed here -->
-            </div>
-        </section>
-
+    <div id="allowanceResult">
+        <c:if test="${not empty allowance}">
+            <p>Family Allowance: ${allowance} DH</p>
+        </c:if>
+    </div>
+</section>
         <!-- Payroll Reports Section -->
         <section id="payrollReportsSection">
             <h2>Generate Payroll Reports</h2>
-
-            <button id="generateReportBtn" class="button">Generate Payroll Report</button>
+            <a href="/calculate_allowance" class="button">Generate Payroll Report</a>
         </section>
+        <c:if test="${not empty familyRaport}">
+            <section id="familyRaportSection">
+                <h2>Family Raport</h2>
+                <table id="familyRaportTable">
+                    <thead>
+                        <tr>
+                            <th>Number of Children</th>
+                            <th>Family Allowance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td>${familyRaport.numberOfChildren}</td>
+                                <td>${familyRaport.totalSalary}</td>
+                                <td>${familyRaport.employee.email}</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+            </section>
+        </c:if>
     </div>
 
-    <%-- <script src="js/employee.js"></script> --%>
 </body>
 </html>
