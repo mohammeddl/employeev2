@@ -6,17 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Employee Management</title>
-    <link rel="stylesheet" href="css/admin.css"> <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="css/admin.css"> 
 </head>
 <body>
 
     <div class="container">
         <h1>Employee Management</h1>
         
-        <!-- Add Employee Button -->
         <button id="addEmployeeBtn" class="button">Add Employee</button>
 
-        <!-- Employee List Table -->
         <table id="employeeTable">
             <thead>
                 <tr>
@@ -25,11 +23,14 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Role</th>
+                    <th>Salary</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>Date of Joining</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Use JSTL to loop through employees -->
                 <c:forEach var="employee" items="${employees}">
                     <tr>
                         <td>${employee.id}</td>
@@ -37,6 +38,10 @@
                         <td>${employee.email}</td>
                         <td>${employee.phoneNumber}</td>
                         <td>${employee.role}</td>
+                        <td>${employee.salary}</td>
+                        <td>${employee.department}</td>
+                        <td>${employee.position}</td>
+                        <td>${employee.hireDate}</td>
                         <td>
                             <button class="edit-btn" data-id="${employee.id}">Edit</button>
                             <form action="/admin" method="post" style="display:inline-block;">
@@ -50,7 +55,6 @@
             </tbody>
         </table>
 
-        <!-- Add/Edit Employee Form Modal -->
         <div id="employeeFormContainer" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -66,6 +70,18 @@
 
                     <label for="phone">Phone:</label>
                     <input type="text" id="phone" name="phone" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <label for="salary">Salary:</label>
+                    <input type="number" id="salary" name="salary" required>
+
+                    <label for="department">Department:</label>
+                    <input type="text" id="department" name="department" required>
+
+                    <label for="position">Position:</label>
+                    <input type="text" id="position" name="position" required>
 
                     <label for="role">Role:</label>
                     <select id="role" name="role" required>

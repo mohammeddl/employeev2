@@ -29,22 +29,32 @@ public class EmployeeController extends HttpServlet {
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String role = request.getParameter("role");
-        String address = request.getParameter("address"); 
+        String address = request.getParameter("address");
+        String salary = request.getParameter("salary");
+        String department = request.getParameter("department");
+        String position = request.getParameter("position");
 
         switch (action) {
             case "create":
-                // Create new employee
                 Employee newEmployee = new Employee();
                 newEmployee.setName(name);
                 newEmployee.setEmail(email);
                 newEmployee.setPhoneNumber(phone);
                 newEmployee.setRole(role);
                 newEmployee.setAddress(address);
+                newEmployee.setSalary(Double.parseDouble(salary));
+                newEmployee.setDepartment(department);
+                newEmployee.setPosition(position);
+                newEmployee.setSocialSecurityNumber("123-45-6789");
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                String hireDateStr = sdf.format(new java.util.Date());
+                newEmployee.setHireDate(hireDateStr);
                 employeeService.createEmployee(newEmployee);
+                
+
                 break;
 
             case "update":
-                // Update existing employee
                 if (employeeId != null && !employeeId.isEmpty()) {
                     Employee existingEmployee = employeeService.getEmployeeById(Integer.parseInt(employeeId));
                     if (existingEmployee != null) {
@@ -53,13 +63,15 @@ public class EmployeeController extends HttpServlet {
                         existingEmployee.setPhoneNumber(phone);
                         existingEmployee.setRole(role);
                         existingEmployee.setAddress(address);
+                        existingEmployee.setSalary(Double.parseDouble(salary));
+                        existingEmployee.setDepartment(department);
+                        existingEmployee.setPosition(position);
                         employeeService.updateEmployee(existingEmployee);
                     }
                 }
                 break;
 
             case "delete":
-                // Delete employee
                 if (employeeId != null && !employeeId.isEmpty()) {
                     Employee employee = new Employee();
                     employee.setId(Integer.parseInt(employeeId));
@@ -79,3 +91,5 @@ public class EmployeeController extends HttpServlet {
         request.getRequestDispatcher("admin.jsp").forward(request, response);
     }
 }
+
+
