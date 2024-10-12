@@ -32,7 +32,6 @@ public class FamilyAllowanceController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Employee employee = (Employee) session.getAttribute("employee");
-        System.out.println("this is data for employee :"+employee);
         double salary = employee.getSalary();
         int numberOfChildren = Integer.parseInt(request.getParameter("numberOfChildren"));
         FamilyAllowanceCalculator calculator = new FamilyAllowanceCalculator();

@@ -16,6 +16,7 @@ import com.employee.model.Employee;
 import com.employee.model.Leave;
 
 import com.employee.service.LeaveService;
+import com.employee.util.EmailService;
 
 @WebServlet("/leave")
 public class LeaveController extends HttpServlet {
@@ -58,14 +59,11 @@ public class LeaveController extends HttpServlet {
         }
     }
 
-
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            getAllLeavesByEmployeeId(request, response);
-        
+        getAllLeavesByEmployeeId(request, response);
+
     }
-
-
 
     public void getAllLeavesByEmployeeId(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -83,6 +81,7 @@ public class LeaveController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Employee employee = (Employee) session.getAttribute("employee");
+
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -111,6 +110,16 @@ public class LeaveController extends HttpServlet {
 
         Leave leave = new Leave(startDate, endDate, "in progress", employee);
         leaveService.applyLeave(leave);
+        String adminEmail = "daali.22.ssss@gmail.com";
+        String subject = "New Leave Request Submitted";
+        String body = "Employee " + employee.getName() + " has submitted a leave request.\n" +
+                "Start Date: " + startDateStr + "\n" +
+                "End Date: " + endDateStr;
+                try {
+            EmailService.sendEmail(adminEmail, subject, body);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         response.sendRedirect("leave");
     }
 
