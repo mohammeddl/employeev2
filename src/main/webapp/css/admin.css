@@ -1,80 +1,165 @@
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 20px;
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f6f9;
 }
 
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.dashboard {
+    display: flex;
+    width: 100%;
 }
 
-h1 {
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #2a3f54;
+    padding: 20px;
+    color: white;
+    height: 100vh;
+    position: fixed;
+}
+
+.logo-container {
     text-align: center;
+    padding-bottom: 40px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #f7c552;
+}
+
+.nav-links {
+    list-style-type: none;
+}
+
+.nav-links li {
+    margin-bottom: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a i {
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+.nav-links a:hover {
+    color: #f7c552;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 250px;
+    padding: 40px;
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.search-bar {
+    padding: 10px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.dashboard-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-content h2 {
     margin-bottom: 20px;
-    color: #333;
+    font-size: 24px;
 }
 
 .button {
-    background-color: #4CAF50;
-    color: white;
     padding: 10px 20px;
+    background-color: #f7c552;
+    color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 .button:hover {
-    background-color: #45a049;
+    background-color: #d49b45;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 12px;
+table th, table td {
     text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
 }
 
-th {
-    background-color: #f2f2f2;
-}
-
-.edit-btn, .delete-btn {
-    background-color: #007BFF;
+table th {
+    background-color: #2a3f54;
     color: white;
+}
+
+table td button {
+    padding: 8px 12px;
+    background-color: #4a77d4;
     border: none;
-    padding: 5px 10px;
+    color: white;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.delete-btn {
-    background-color: #DC3545;
+table td .delete-btn {
+    background-color: #e74c3c;
+    padding: 8px 12px;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-.edit-btn:hover, .delete-btn:hover {
-    opacity: 0.8;
+table td button:hover {
+    opacity: 0.9;
 }
-
-/* Modal for Add/Edit Employee Form */
 .modal {
     display: none;
     position: fixed;
@@ -109,10 +194,19 @@ form label {
     margin: 10px 0 5px;
 }
 
-form input[type="text"], form input[type="email"], form select {
+form input[type="text"], form input[type="email"], form input[type="number"], form input[type="password"], form select {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
 }
+
+.buttonPosition{
+    display: flex;
+    align-items: center ;
+    margin-top: 15px;
+    gap: 5px;
+}
+
+

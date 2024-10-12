@@ -33,6 +33,7 @@ public class EmployeeController extends HttpServlet {
         String salary = request.getParameter("salary");
         String department = request.getParameter("department");
         String position = request.getParameter("position");
+        String password = request.getParameter("password");
 
         switch (action) {
             case "create":
@@ -41,6 +42,7 @@ public class EmployeeController extends HttpServlet {
                 newEmployee.setEmail(email);
                 newEmployee.setPhoneNumber(phone);
                 newEmployee.setRole(role);
+                newEmployee.setPassword(password);
                 newEmployee.setAddress(address);
                 newEmployee.setSalary(Double.parseDouble(salary));
                 newEmployee.setDepartment(department);
@@ -85,7 +87,10 @@ public class EmployeeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Fetch all employees and send to JSP
+        if(request.getSession().getAttribute("admin") == null){
+            response.sendRedirect("login.jsp");
+            return;
+        }
         List<Employee> employees = employeeService.getAllEmployees();
         request.setAttribute("employees", employees);
         request.getRequestDispatcher("admin.jsp").forward(request, response);

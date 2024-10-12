@@ -13,19 +13,18 @@
 <body>
 
 
-<form action="/oauth" method="post">
+<div class="login">
+  <h1>Login</h1>
+    <form action="/oauth" method="post">
     <input type="hidden" name="action" value="login">
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email" required><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-
-    <button type="submit">Login</button>
-</form>
+      <input type="text" name="email" placeholder="email" required="required" />
+        <input type="password" name="password" placeholder="Password" required="required" />
+        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+    </form>
 <P>${message}</P>
-
 <c:if test="${not empty errorMessage}">
     <p style="color: red">${errorMessage}</p>
 </c:if>
+</div>
 </body>
 </html>

@@ -20,6 +20,8 @@ addEmployeeBtn.onclick = function () {
   employeeIdField.value = "";
   actionField.value = "create";
   modal.style.display = "flex";
+
+  console.log("Add Employee button clicked");edit-btn
 };
 
 closeBtn.onclick = function () {
@@ -34,9 +36,8 @@ window.onclick = function (event) {
 
 document.querySelectorAll(".edit-btn").forEach((btn) => {
   btn.addEventListener("click", function () {
-    const employeeId = this.getAttribute("data-id");
-
     const row = this.closest("tr");
+    const employeeId = this.getAttribute("data-id");
     const name = row.querySelector("td:nth-child(2)").innerText;
     const email = row.querySelector("td:nth-child(3)").innerText;
     const phone = row.querySelector("td:nth-child(4)").innerText;
@@ -44,21 +45,14 @@ document.querySelectorAll(".edit-btn").forEach((btn) => {
     const salary = row.querySelector("td:nth-child(6)").innerText;
     const department = row.querySelector("td:nth-child(7)").innerText;
     const position = row.querySelector("td:nth-child(8)").innerText;
-    
 
-    employeeIdField.value = employee.id;
-    nameField.value = employee.name;
-    emailField.value = employee.email;
-    phoneField.value = employee.phoneNumber;
-    salaryField.value = employee.salary;
-    departmentField.value = employee.department;
-    positionField.value = employee.position;
-    roleField.value = employee.role;
-
-    passwordField.value = "";
-    salaryField.value = "";
-    departmentField.value = "";
-    positionField.value = "";
+    employeeIdField.value = employeeId;
+    nameField.value = name;
+    emailField.value = email;
+    phoneField.value = phone;
+    salaryField.value = salary;
+    departmentField.value = department;
+    positionField.value = position;
     roleField.value = role;
 
     formTitle.innerText = "Edit Employee";
