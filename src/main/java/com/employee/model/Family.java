@@ -12,9 +12,10 @@ public class Family {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    public Family(int numberOfChildren, double totalSalary) {
+    public Family( Employee employee, int numberOfChildren, double totalSalary) {
         this.numberOfChildren = numberOfChildren;
         this.totalSalary = totalSalary;
+        this.employee = employee;
     }
     public Family() {
     }
@@ -34,5 +35,15 @@ public class Family {
     public void setTotalSalary(double totalSalary) {
         this.totalSalary = totalSalary;
     }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+
     
 }

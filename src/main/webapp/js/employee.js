@@ -5,7 +5,7 @@ document.getElementById('leaveForm').onsubmit = function(event) {
     // Add logic to submit the leave request
 };
 
-// Family allowance calculation
+Family allowance calculation
 document.getElementById('familyAllowanceForm').onsubmit = function(event) {
     event.preventDefault();
     const numberOfChildren = document.getElementById('numberOfChildren').value;
@@ -17,7 +17,7 @@ document.getElementById('familyAllowanceForm').onsubmit = function(event) {
     document.getElementById('allowanceResult').innerText = `Calculated Family Allowance: $${allowance.toFixed(2)}`;
 };
 
-// Handle payroll report generation (for demonstration purposes)
+
 document.getElementById('generateReportBtn').onclick = function() {
     console.log('Generating payroll report...');
     alert('Payroll report generated!');
