@@ -67,21 +67,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                   
+                   <c:forEach items="${candidates}" var="candidate">
                     <tr>
                         <td>1</td>
-                        <td>John Doe</td>
-                        <td>john.doe@example.com</td>
-                        <td>Software Developer</td>
-                        <td>Received</td>
+                        <td>${candidate.candidate.name}</td>
+                        <td>${candidate.candidate.email}</td>
+                        <td>${candidate.candidate.phoneNumber}</td>
+                        <td>${candidate.status}</td>
                         <td>
-                            <button class="status-btn" data-status="In Progress">In Progress</button>
-                            <button class="status-btn" data-status="Accepted">Accept</button>
-                            <button class="status-btn" data-status="Rejected">Reject</button>
+                            <a href="/recruiter?action=accepted&id=${candidate.id}" class="status-btn" data-status="Accepted">Accept</a>
+                            <a href="/recruiter?action=rejected&id=${candidate.id}" data-status="Rejected">Reject</a>
                         </td>
                     </tr>
+                    </c:forEach>
 
-                    <!-- More rows can be added dynamically -->
                 </tbody>
             </table>
         </section>
@@ -110,7 +109,7 @@
             </div>
         </div>
     </div>
-
+<a href="/oauth">Logout</a>
     <script src="js/recruiter.js"></script>
 </body>
 </html>

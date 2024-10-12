@@ -111,5 +111,6 @@
         </c:if>
     </div>
 
+<a href="/oauth">Logout</a>
 </body>
 </html>

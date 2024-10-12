@@ -44,5 +44,7 @@
         </tbody>
     </table>
 
+    <a href="/oauth">Logout</a>
+
 </body>
 </html>

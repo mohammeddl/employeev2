@@ -83,7 +83,6 @@ public class UserController extends HttpServlet {
         }
     }
 
-   
     public void registerUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
@@ -93,36 +92,26 @@ public class UserController extends HttpServlet {
         String birthDate = request.getParameter("birthDate");
         String phoneNumber = request.getParameter("phoneNumber");
         String address = request.getParameter("address");
-        if(role.equals("CANDIDATE")){
+        if (role.equals("CANDIDATE")) {
             Candidate candidate = new Candidate(name, email, password, role, new Date(), phoneNumber, address);
             candidateService.createCandidate(candidate);
             request.setAttribute("message", "Candidate created successfully");
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        }else{
+        } else {
             Recruiter recruiter = new Recruiter(name, email, password, role, new Date(), phoneNumber, address);
             recruiterService.addRecruiter(recruiter);
             request.setAttribute("message", "Recruiter created successfully");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-        
     }
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false); 
+        if (session != null) {
+            session.invalidate(); 
+        }
+        response.sendRedirect("login.jsp"); 
+    }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-response.sendRedirect("login.jsp");
-}
-
-
-// public class LogoutController extends HttpServlet {
-//     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//             throws ServletException, IOException {
-//         // Invalidate the session to clear all stored session data
-//         HttpSession session = request.getSession(false); // Get session without creating a new one
-//         if (session != null) {
-//             session.invalidate(); // Close session
-//         }
-//         response.sendRedirect("login.jsp"); // Redirect to login page after logout
-//     }
-// }
 }

@@ -95,7 +95,7 @@
             </div>
         </div>
     </div>
-
+<a href="/oauth">Logout</a>
     <script src="js/admin.js"></script> 
 </body>
 </html>
