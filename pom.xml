@@ -111,10 +111,10 @@
           <artifactId>tomcat7-maven-plugin</artifactId>
           <version>2.2</version>
           <configuration>
-            <port>7070</port>
-            <path>/</path>
+              <path>/</path>
+              <port>8060</port> <!-- Adjust the port if needed -->
           </configuration>
-        </plugin>
+      </plugin>
         <plugin>
           <groupId>org.zeroturnaround</groupId>
           <artifactId>jrebel-maven-plugin</artifactId>
