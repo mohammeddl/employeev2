@@ -10,8 +10,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import com.employee.dao.ApplicationDAO;
+import com.employee.dao.JobOfferDAO;
+import com.employee.model.Application;
 import com.employee.model.JobOffer;
 import com.employee.model.Recruiter;
+import com.employee.service.CandidateService;
 import com.employee.service.JobOfferService;
 
 @WebServlet("/recruiter")
@@ -19,8 +23,11 @@ public class RecruiterController extends HttpServlet {
 
     private JobOfferService jobOfferService;
 
+    private ApplicationDAO applicationDAO = new ApplicationDAO();
+
     public void init() {
         jobOfferService = new JobOfferService();
+        
     }
 
 
@@ -43,7 +50,25 @@ public class RecruiterController extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException , IOException {
-        getAllJobOffers(req, res);
+        String action = req.getParameter("action");
+        switch (action) {
+            case "accepted":
+                acceptApplication(req, res);
+                
+                break;
+            case "rejected":
+                rejectApplication(req, res);
+                
+                break;
+        
+            default:
+            getAllJobOffers(req, res);
+                break;
+        }
+
+        
+        
+
         
     }
 
@@ -113,14 +138,50 @@ public class RecruiterController extends HttpServlet {
         HttpSession session = req.getSession();
         Recruiter recruiter = (Recruiter) session.getAttribute("recruiter");
 
+
         if (recruiter == null) {
             resp.sendRedirect("login.jsp");
             return;
         }
         List<JobOffer> jobOffers = jobOfferService.findAllJobOffers(recruiter);;
         req.setAttribute("jobOffers", jobOffers);
+        req.setAttribute("candidates", applicationDAO.findAll(recruiter));
         req.getRequestDispatcher("recruiter.jsp").forward(req, resp);
     }
 
+    public void rejectApplication(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        HttpSession session = req.getSession();
+        Recruiter recruiter = (Recruiter) session.getAttribute("recruiter");
+        if (recruiter == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
+        int applicationId = Integer.parseInt(req.getParameter("id"));
+        Application application = applicationDAO.findApplicationById(applicationId);
+        application.setStatus("rejected");
+        applicationDAO.updateApplication(application);
+        List<JobOffer> jobOffers = jobOfferService.findAllJobOffers(recruiter);;
+        req.setAttribute("jobOffers", jobOffers);
+        req.setAttribute("candidates", applicationDAO.findAll(recruiter));
+        req.getRequestDispatcher("recruiter.jsp").forward(req, resp);
+    }
+
+    public void acceptApplication(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        HttpSession session = req.getSession();
+        Recruiter recruiter = (Recruiter) session.getAttribute("recruiter");
+        if (recruiter == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
+        int applicationId = Integer.parseInt(req.getParameter("id"));
+
+        Application application = applicationDAO.findApplicationById(applicationId);
+        application.setStatus("accepted");
+        applicationDAO.updateApplication(application);
+        List<JobOffer> jobOffers = jobOfferService.findAllJobOffers(recruiter);;
+        req.setAttribute("jobOffers", jobOffers);
+        req.setAttribute("candidates", applicationDAO.findAll(recruiter));
+        req.getRequestDispatcher("recruiter.jsp").forward(req, resp);
+    }
 
 }
