@@ -20,7 +20,7 @@ public class Main {
         // Employee employee = new Employee("John Doe", "tes@gmail.com", "password" , "EMPLOYEE", new Date(), "2023-10-01", 50000.0, "Developer", "IT", "123456789", "555-1234", "123 Street");
 
         // Admin admin = new Admin("daali", "daali@admin.com", "password", "ADMIN", new Date(), "2023-10-01", "hay mghib arabi ");
-        Recruiter recruiter = new Recruiter("mohammed", "mohammed@test.com", "password", "RECRUITER", new Date(), "2023-10-01", "hay mghib arabi");
+        Recruiter recruiter = new Recruiter("med", "dfdf@test.com", "password", "RECRUITER", new Date(), "2023-10-01", "hay mghib arabi");
         em.persist(recruiter);
 
         em.getTransaction().commit();   

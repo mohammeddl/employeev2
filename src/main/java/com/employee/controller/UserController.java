@@ -70,11 +70,11 @@ public class UserController extends HttpServlet {
                     break;
                 case "CANDIDATE":
                     session.setAttribute("candidate", user);
-                    response.sendRedirect("candidate.jsp");
+                    response.sendRedirect("candidate");
                     break;
                 case "ADMIN":
                     session.setAttribute("admin", user);
-                    response.sendRedirect("admin");
+                    response.sendRedirect("admin.jsp");
                     break;
                 default:
                     response.sendRedirect("login.jsp");

@@ -20,15 +20,15 @@ public class JobOfferDAO implements GenericDAO<JobOffer> {
         return em.createQuery("SELECT j FROM JobOffer j WHERE j.recruiter = :recruiter", JobOffer.class)
                 .setParameter("recruiter", recruiter)
                 .getResultList();
-       
+
     }
 
     @Override
     public void create(JobOffer jobOffer) {
         try {
             em.getTransaction().begin();
-            em.persist(jobOffer);       
-            em.getTransaction().commit(); 
+            em.persist(jobOffer);
+            em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             if (em.getTransaction().isActive()) {
@@ -40,33 +40,40 @@ public class JobOfferDAO implements GenericDAO<JobOffer> {
     @Override
     public void update(JobOffer jobOffer) {
         try {
-            em.getTransaction().begin(); 
-            em.merge(jobOffer);          
-            em.getTransaction().commit(); 
-            
+            em.getTransaction().begin();
+            em.merge(jobOffer);
+            em.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
             if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback(); 
+                em.getTransaction().rollback();
             }
         }
     }
 
     @Override
     public void delete(JobOffer jobOffer) {
-        try{
+        try {
             em.getTransaction().begin();
             JobOffer jobOfferToDelete = em.find(JobOffer.class, jobOffer.getId());
             em.remove(jobOfferToDelete);
             em.getTransaction().commit();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            if(em.getTransaction().isActive()){
+            if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
         }
     }
 
-   
-    
+    public List<JobOffer> getAllPublishedJobOffers() {
+        return em.createQuery("SELECT j FROM JobOffer j WHERE j.status = 'in progress'", JobOffer.class)
+                .getResultList();
+    }
+
+    public JobOffer getJobOfferById(int id) {
+        return em.find(JobOffer.class, id);
+    }
+
 }
