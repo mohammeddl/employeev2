@@ -1,15 +1,15 @@
 package com.employee.service;
-
 import com.employee.model.Employee;
 import com.employee.repository.EmployeeRepository;
 
 import java.util.List;
 
-public class EmployeeService {
+
+public class EmployeeTestService {
 
     private EmployeeRepository employeeRepository;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeTestService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
