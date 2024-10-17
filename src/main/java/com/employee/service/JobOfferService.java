@@ -30,6 +30,16 @@ public class JobOfferService {
         jobOfferDAO.delete(jobOffer);
     }
 
+    public List<JobOffer> getAllJobOffers() {
+        return jobOfferDAO.getAllPublishedJobOffers();
+    }
+
+    public JobOffer getJobOfferById(int id) {
+        return jobOfferDAO.getJobOfferById(id);
+    }
+
+
+
     
     
 }

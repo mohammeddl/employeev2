@@ -34,7 +34,7 @@
                 <div class="header-right">
                     <div class="user-info">
                         <img src="https://img.freepik.com/vecteurs-premium/illustration-icone-vectorielle-gestion-du-jeu-icones-business-analytics_904970-117820.jpg" alt="User" class="user-avatar">
-                        <span>Admin Name</span>
+                        <span>Daali</span>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,48 @@
             </div>
         </div>
             </div>
+            <!-- Leave Approval Section -->
+<div class="dashboard-content">
+    <h2>Leave Approval</h2>
+    <table id="leaveRequestTable">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="leaveRequest" items="${leaveRequests}">
+                <tr>
+                    <td>${leaveRequest.employee.name}</td>
+                    <td>${leaveRequest.startDate}</td>
+                    <td>${leaveRequest.endDate}</td>
+                    <td>${leaveRequest.status}</td>
+                    <td class="buttonPosition2">
+                        <form action="/leave" method="post" style="display:inline-block;">
+                            <input type="hidden" name="leaveId" value="${leaveRequest.id}">
+                            <input type="hidden" name="action" value="approve">
+                            <input type="hidden" name="leaveRequestId" value="${leaveRequest.id}">
+                            <input type="submit" class="approve-btn" value="Approve">
+                        </form>
+                        <form action="/leave" method="post" style="display:inline-block;">
+                        <input type="hidden" name="leaveId" value="${leaveRequest.id}">
+                            <input type="hidden" name="action" value="reject">
+                            <input type="hidden" name="leaveRequestId" value="${leaveRequest.id}">
+                            <input type="submit" class="reject-btn" value="Reject">
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+
         </div>
+        
     </div>
 
     <script src="js/admin.js"></script>

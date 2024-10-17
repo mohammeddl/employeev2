@@ -101,6 +101,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .dashboard-content h2 {
@@ -209,4 +210,29 @@ form input[type="text"], form input[type="email"], form input[type="number"], fo
     gap: 5px;
 }
 
+.approve-btn {
+    background-color: #4CAF50; /* Green */
+    padding: 8px 12px;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.approve-btn:hover {
+    background-color: #45a049;
+}
+
+.reject-btn {
+    background-color: #e74c3c; 
+    padding: 8px 12px;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.buttonPosition2{
+
+}
 

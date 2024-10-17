@@ -7,8 +7,8 @@ const jobIdField = document.getElementById('jobId');
 const title = document.getElementById('title');
 const description = document.getElementById('description');
 const locations = document.getElementById('location');
-const date = document.getElementById('date'); // End Date field
-const errorMessage = document.createElement('p'); // Create an element to show error messages
+const date = document.getElementById('date'); 
+const errorMessage = document.createElement('p'); 
 
 // Append error message placeholder after the date input
 date.insertAdjacentElement('afterend', errorMessage);
@@ -84,6 +84,7 @@ jobOfferForm.onsubmit = function(event) {
         if (response.ok) {
             console.log('Job offer created/updated successfully');
             modal.style.display = 'none';
+            window.location.reload(); 
         } else {
             console.log('Error occurred');
         }

@@ -20,16 +20,13 @@ public class FamilyAllowanceCalculator {
     private double calculateAllowanceForChildren(int numberOfChildren, double firstThreeRate, double nextThreeRate) {
         double allowance = 0;
 
-        // Calculate for first 3 children
         if (numberOfChildren > 0) {
             allowance += Math.min(3, numberOfChildren) * firstThreeRate;
         }
 
-        // Calculate for next 3 children, if applicable
         if (numberOfChildren > 3) {
             allowance += Math.min(3, numberOfChildren - 3) * nextThreeRate;
         }
-
         return allowance;
     }
 }

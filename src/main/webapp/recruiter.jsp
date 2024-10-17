@@ -117,7 +117,8 @@
                 <div id="jobOfferFormContainer" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <form id="jobOfferForm" method="post" action="/recruiter">
+                        <form id="jobOfferForm">
+
                             <h2 id="formTitle">Create Job Offer</h2>
                             <input type="hidden" id="jobId" name="jobId">
 
@@ -132,6 +133,7 @@
 
                             <label for="date">End Date:</label>
                             <input type="date" id="date" name="date" required>
+                            <input type="hidden" name="action" id="actionField">
                             <button type="submit" class="button">Save</button>
                         </form>
                     </div>

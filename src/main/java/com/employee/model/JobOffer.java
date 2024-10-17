@@ -27,6 +27,9 @@ public class JobOffer {
         this.endDate = endDate;
     }
 
+    public JobOffer(String string, String string2, String string3, int i) {
+    }
+
     public JobOffer() {
     }
 

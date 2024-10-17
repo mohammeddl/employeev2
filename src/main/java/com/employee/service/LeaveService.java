@@ -22,11 +22,13 @@ public class LeaveService {
     public void approveLeave(Leave leave) {
         Leave leaveToUpdate = leaveDAO.findById(leave.getId());
         leaveToUpdate.setStatus("approved");
+        leaveDAO.update(leaveToUpdate);
     }
 
     public void rejectLeave(Leave leave) {
         Leave leaveToUpdate = leaveDAO.findById(leave.getId());
         leaveToUpdate.setStatus("rejected");
+        leaveDAO.update(leaveToUpdate);
     }
 
     public Leave getLeave(int id) {
