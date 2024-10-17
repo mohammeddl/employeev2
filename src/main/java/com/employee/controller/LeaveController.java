@@ -13,18 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.employee.model.Employee;
+import com.employee.model.HistoryLeave;
 import com.employee.model.Leave;
-
+import com.employee.service.HistoryLeaveService;
 import com.employee.service.LeaveService;
 import com.employee.util.EmailService;
 
 @WebServlet("/leave")
 public class LeaveController extends HttpServlet {
 
-    private LeaveService leaveService = new LeaveService();
+    private LeaveService leaveService ;
+    private HistoryLeaveService historyLeaveService;
 
     public void init() {
         leaveService = new LeaveService();
+        historyLeaveService = new HistoryLeaveService();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -127,8 +130,10 @@ public class LeaveController extends HttpServlet {
             throws ServletException, IOException {
         int leaveId = Integer.parseInt(request.getParameter("leaveId"));
         Leave leave = leaveService.getLeave(leaveId);
+        historyLeaveService.createHistoryLeave(new HistoryLeave(leave, "Leave approved by admin"));
         leaveService.approveLeave(leave);
-        response.sendRedirect("admin.jsp");
+        request.setAttribute("message", "Leave approved successfully");
+        request.getRequestDispatcher("admin").forward(request, response);
     }
 
     public void rejectLeave(HttpServletRequest request, HttpServletResponse response)
@@ -136,7 +141,9 @@ public class LeaveController extends HttpServlet {
         int leaveId = Integer.parseInt(request.getParameter("leaveId"));
         Leave leave = leaveService.getLeave(leaveId);
         leaveService.rejectLeave(leave);
-        response.sendRedirect("admin.jsp");
+        historyLeaveService.createHistoryLeave(new HistoryLeave(leave, "Leave rejected by admin"));
+        request.setAttribute("message", "Leave rejected successfully");
+        request.getRequestDispatcher("admin").forward(request, response);
     }
 
 }

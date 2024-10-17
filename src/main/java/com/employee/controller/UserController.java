@@ -66,7 +66,7 @@ public class UserController extends HttpServlet {
                     break;
                 case "RECRUITER":
                     session.setAttribute("recruiter", user);
-                    response.sendRedirect("recruiter");
+                    response.sendRedirect("recruiter?action");
                     break;
                 case "CANDIDATE":
                     session.setAttribute("candidate", user);
@@ -74,7 +74,7 @@ public class UserController extends HttpServlet {
                     break;
                 case "ADMIN":
                     session.setAttribute("admin", user);
-                    response.sendRedirect("admin.jsp");
+                    response.sendRedirect("admin");
                     break;
                 default:
                     response.sendRedirect("login.jsp");

@@ -8,6 +8,26 @@
     <link rel="stylesheet" href="css/candidate.css">
 </head>
 <body>
+    <header>
+        <section class="relative-section">
+    <div class="navbar-container">
+        <a href="/candidate" class="logo">ManagePro</a>
+
+        <nav class="main-nav">
+            <a href="/candidate" class="nav-link">Home</a>
+            <div class="separator"></div>
+            <a href="/oauth" class="signup-button">logout</a>
+        </nav>
+
+        <!-- Mobile Button -->
+        <div class="mobile-menu-icon">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
+            </svg>
+        </div>
+    </div>
+</section>
+    </header>
 
     <h1>Available Job Offers</h1>
 
@@ -44,7 +64,6 @@
         </tbody>
     </table>
 
-    <a href="/oauth">Logout</a>
 
 </body>
 </html>

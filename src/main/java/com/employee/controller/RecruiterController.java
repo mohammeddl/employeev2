@@ -92,7 +92,6 @@ public class RecruiterController extends HttpServlet {
         jobOffer.setEndDate(req.getParameter("date"));
         jobOffer.setRecruiter(recruiter);
         jobOfferService.createJobOffer(jobOffer);
-
     }
 
     public void deleteJobOffer(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -129,9 +128,6 @@ public class RecruiterController extends HttpServlet {
         jobOffer.setEndDate(req.getParameter("date"));
         jobOffer.setRecruiter(recruiter);
         jobOfferService.updateJobOffer(jobOffer);
-        List<JobOffer> jobOffers = jobOfferService.findAllJobOffers(recruiter);;
-        req.setAttribute("jobOffers", jobOffers);
-        req.getRequestDispatcher("recruiter.jsp").forward(req, resp);
     }
     
     public void getAllJobOffers(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

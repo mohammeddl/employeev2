@@ -16,9 +16,7 @@ public abstract class User {
     private String role;
     @Temporal(TemporalType.DATE)
     private Date birthDate;
-    
     private String phoneNumber;
-    
     private String address;
 
 

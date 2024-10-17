@@ -112,7 +112,7 @@
           <version>2.2</version>
           <configuration>
               <path>/</path>
-              <port>8060</port> <!-- Adjust the port if needed -->
+              <port>8060</port> 
           </configuration>
       </plugin>
         <plugin>
