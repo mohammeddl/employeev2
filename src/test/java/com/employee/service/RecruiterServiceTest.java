@@ -5,6 +5,10 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.Arrays;
 
 import com.employee.dao.RecruiterDAO;
@@ -29,7 +33,8 @@ public class RecruiterServiceTest {
         Recruiter recruiter = new Recruiter();
         recruiter.setId(1);
         recruiter.setName("John");
-        recruiterDAO.create(recruiter);
+        recruiterService.addRecruiter(recruiter);
+
     }
 
     @Test
@@ -37,14 +42,19 @@ public class RecruiterServiceTest {
         Recruiter recruiter = new Recruiter();
         recruiter.setId(4);
         recruiter.setName("mohammed");
-        recruiterDAO.update(recruiter);
+        recruiterService.updateRecruiter(recruiter);
+
+        verify(recruiterDAO).update(recruiter);
     }
 
     @Test
     public void testDeleteRecruiter() {
         Recruiter recruiter = new Recruiter();
         recruiter.setId(4);
-        recruiterDAO.delete(recruiter);
+        recruiterService.deleteRecruiter(recruiter);
+
+        verify(recruiterDAO).delete(recruiter);
+
     }
     
 }

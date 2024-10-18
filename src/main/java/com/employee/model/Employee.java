@@ -21,15 +21,6 @@ public class Employee extends User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
     private List<Leave> leaves;
 
-    public Employee(String name, String email, String password, double salary) {
-        super(name, email, password, role, birthDate, phoneNumber, address);
-        this.hireDate = hireDate;
-        this.salary = salary;
-        this.position = position;
-        this.department = department;
-        this.socialSecurityNumber = socialSecurityNumber;
-    }
-
     public Employee() { }
 
     public Employee(String name, String email, String password, String role, Date birthDate, String phoneNumber, String address, String hireDate, double salary, String position, String department, String socialSecurityNumber) {

@@ -1,7 +1,7 @@
 package com.employee.service;
 
+import com.employee.dao.EmployeeDAO;
 import com.employee.model.Employee;
-import com.employee.repository.EmployeeRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -17,10 +17,10 @@ import static org.mockito.Mockito.*;
 public class EmployeeServiceTest {
 
     @InjectMocks
-    private EmployeeTestService employeeTestService;
+    private EmployeeService employeeService;
 
     @Mock
-    private EmployeeRepository employeeRepository;
+    private EmployeeDAO employeeDAO;
 
     @Before
     public void setUp() {
@@ -38,41 +38,52 @@ public class EmployeeServiceTest {
         employee2.setId(2);
         employee2.setName("Jane");
         List<Employee> employees = Arrays.asList(employee1, employee2);
-        when(employeeRepository.findAll()).thenReturn(employees);
+        when(employeeDAO.getAllEmployees()).thenReturn(employees);
 
         // When
-        List<Employee> result = employeeTestService.getAllEmployees();
+        List<Employee> result = employeeService.getAllEmployees();
 
         // Then
         assertEquals(2, result.size());
-        verify(employeeRepository, times(1)).findAll(); // Verify findAll() is called once
+        verify(employeeDAO, times(1)).getAllEmployees(); 
     }
 
   
 
     @Test
     public void testAddEmployee() {
-        // Given
         Employee employee = new Employee();
         employee.setId(3);
         employee.setName("Doe");
-
-        // When
-        employeeTestService.addEmployee(employee);
-
-        // Then
-        verify(employeeRepository, times(1)).save(employee);
+        employeeService.createEmployee(employee);
+        verify(employeeDAO, times(1)).create(employee);
     }
 
     @Test
     public void testRemoveEmployee() {
-        // Given
-        int employeeId = 1;
-
-        // When
-        employeeTestService.removeEmployee(employeeId);
-
-        // Then
-        verify(employeeRepository, times(1)).deleteById(employeeId);
+        Employee employee = new Employee();
+        employee.setId(4);
+        employee.setName("Doe");
+        employeeService.deleteEmployee(employee);
+        verify(employeeDAO, times(1)).delete(employee);
     }
+
+    @Test
+    public void testUpdateEmployee() {
+        Employee employee = new Employee();
+        employee.setId(9);
+        employee.setName("mohammed");
+        employeeService.updateEmployee(employee);
+        verify(employeeDAO, times(1)).update(employee);
+    }
+
+    @Test
+    public void testGetEmployeeById() {
+        Employee employee = new Employee();
+        employee.setId(5);
+        employee.setName("Doe");
+        when(employeeDAO.getEmployeeById(5)).thenReturn(employee);
+        Employee result = employeeService.getEmployeeById(5);
+}
+
 }
