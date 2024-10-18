@@ -33,8 +33,8 @@ public class RecruiterServiceTest {
         Recruiter recruiter = new Recruiter();
         recruiter.setId(1);
         recruiter.setName("John");
-        recruiterDAO.create(recruiter);
-        
+        recruiterService.addRecruiter(recruiter);
+
     }
 
     @Test
@@ -42,7 +42,7 @@ public class RecruiterServiceTest {
         Recruiter recruiter = new Recruiter();
         recruiter.setId(4);
         recruiter.setName("mohammed");
-        recruiterDAO.update(recruiter);
+        recruiterService.updateRecruiter(recruiter);
 
         verify(recruiterDAO).update(recruiter);
     }
@@ -51,7 +51,7 @@ public class RecruiterServiceTest {
     public void testDeleteRecruiter() {
         Recruiter recruiter = new Recruiter();
         recruiter.setId(4);
-        recruiterDAO.delete(recruiter);
+        recruiterService.deleteRecruiter(recruiter);
 
         verify(recruiterDAO).delete(recruiter);
 

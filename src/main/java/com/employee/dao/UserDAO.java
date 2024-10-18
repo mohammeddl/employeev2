@@ -23,7 +23,6 @@ public class UserDAO  {
                     .setParameter("email", email)
                     .setParameter("password", password)
                     .getSingleResult();
-            System.out.println("lksjafsldkfhsjdkafhsakjdf hafkjasdhf ksadjfhksdjafh kasdjhflksd hfkjshfd kal" + user);
             return user;
         } catch (Exception e) {
             return null;
