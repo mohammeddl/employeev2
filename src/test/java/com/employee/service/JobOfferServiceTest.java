@@ -1,5 +1,6 @@
 package com.employee.service;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -52,6 +53,15 @@ public class JobOfferServiceTest {
         JobOffer jobOffer = new JobOffer("Software Engineer", "Google", "Bangalore", 1000000);
         jobOffer.setId(1);
         jobOfferService.updateJobOffer(jobOffer);
+    }
+
+    @Test
+    public void testDeleteJobOffer(){
+        JobOffer jobOffer = new JobOffer("Software Engineer", "Google", "Bangalore", 1000000);
+        jobOffer.setId(1);
+        jobOfferService.deleteJobOffer(jobOffer);
+
+        verify(jobOfferDAO).delete(jobOffer);
     }
 
     
