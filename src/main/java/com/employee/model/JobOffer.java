@@ -27,7 +27,13 @@ public class JobOffer {
         this.endDate = endDate;
     }
 
-    public JobOffer(int id,String string, String string2, String string3, int i) {
+    public JobOffer(int id, String title, String description, String location, String status) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.status = status;
+
     }
 
     public JobOffer() {
